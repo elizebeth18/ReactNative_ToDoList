@@ -1,11 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import {
+  StyleSheet, Text, View
+} from 'react-native';
+import CreateTask from './components/CreateTask';
+import ListTasks from './components/ListTasks';
 
 export default function App() {
+
+  const [taskList, setTaskList] = useState([]);
+
+  const addTaskToListHandler = (task) => {
+    setTaskList((currTask) => [...currTask, {
+      id: Math.random().toString(),
+      task: task
+    }]);
+  }
+
+  const onDeleteTask = (id) => {
+    setTaskList((currTask) => currTask.filter((task) => task.id !== id))
+  }
+
   return (
     <View style={styles.container}>
-      <Text>To Do List!</Text>
-      <StatusBar style="auto" />
+      <CreateTask addTaskToList={addTaskToListHandler} />
+      <View style={styles.listTasks}>
+        <Text style={styles.listLabel}>To Do List</Text>
+        <ListTasks taskList={taskList} onDeleteTask={onDeleteTask} />
+      </View>
     </View>
   );
 }
@@ -13,8 +34,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 50,
+    paddingHorizontal: 16
   },
+  listTasks: {
+    flex: 4
+  },
+  listLabel: {
+    textAlign: 'center'
+  }
 });
