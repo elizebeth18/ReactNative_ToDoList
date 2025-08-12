@@ -24,8 +24,11 @@ export default function App() {
     <View style={styles.container}>
       <CreateTask addTaskToList={addTaskToListHandler} />
       <View style={styles.listTasks}>
-        <Text style={styles.listLabel}>To Do List</Text>
-        <ListTasks taskList={taskList} onDeleteTask={onDeleteTask} />
+
+        {taskList.length > 0 ? <>
+          <Text style={styles.listLabel}>To Do List</Text>
+          <ListTasks taskList={taskList} onDeleteTask={onDeleteTask} />
+        </> : <Text style={styles.emptyListLabel}>Add tasks to view the list</Text>}
       </View>
     </View>
   );
@@ -42,5 +45,9 @@ const styles = StyleSheet.create({
   },
   listLabel: {
     textAlign: 'center'
+  },
+  emptyListLabel: {
+    margin: 20,
+    padding: 10
   }
 });

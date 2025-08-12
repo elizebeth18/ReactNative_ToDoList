@@ -8,7 +8,6 @@ const ListTasks = (props) => {
     return (
         <>
             <FlatList data={props.taskList} renderItem={(itemData) => {
-                console.log(itemData)
                 return (<View style={styles.listTask}>
                     <Text style={styles.taskText}>{itemData.item.task}</Text>
                     <Button title="Delete" onPress={() => onDeleteHandler(itemData.item.id)} />
